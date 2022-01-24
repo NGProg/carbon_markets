@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sb
 import io
 
-from global_variables import data as df
+from global_variables import df
 
 buffer = io.StringIO()
 df.info(buf=buffer)
@@ -17,3 +17,4 @@ def app():
         st.text(s)
         st.header('Markets Statistics')
         st.write(df.describe().T)
+        #st.write(df.head())

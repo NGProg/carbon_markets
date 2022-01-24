@@ -2,22 +2,28 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sb
+from statsmodels.tsa.seasonal import seasonal_decompose
 
 from global_variables import df
 
 def plot_line_market(df, option):
-    df_month = df.resample('M').mean()[option]
+    #df_month = df.resample('M').mean()[option]
+    df_new = df[option]
     fig, ax = plt.subplots()
-    plt.plot(df_month.index, df_month, label=option)
+    plt.plot(df_new.index, df_new, label=option)
     plt.show()
     plt.title('Chart of ' + option + ' Market')
     plt.xlabel('Date')
     plt.ylabel('USD per tonne of carbon dioxide')
     st.pyplot(fig)
 
-def plot_dist_market(df, option):
+def plot_dec_market(df, option):
+    df1 = df.dropna()
+    df1 = df1.asfreq('D')
     fig1, ax1 = plt.subplots()
     sb.distplot(df[option])
+    #decomposed = seasonal_decompose(df1, extrapolate_trend='freq', model='additive')
+    #decomposed.plot()
     plt.show()
     plt.title('Distribution of ' + option + ' Market')
     plt.xlabel('USD per tonne of carbon dioxide')
@@ -39,7 +45,7 @@ def plot_line_diff(df, option, shift):
     plt.ylabel('USD per tonne of carbon dioxide')
     st.pyplot(fig1)  
 
-def plot_dist_diff(df, option, shift):
+def plot_dec_diff(df, option, shift):
     fig1, ax1 = plt.subplots()
     sb.distplot(df)
     plt.show()
@@ -58,10 +64,10 @@ def app():
         col1, col2 = st.columns(2)
         with col1:
             plot_line_market(df, option)
-            plot_dist_market(df, option)
+            plot_dec_market(df, option)
         with col2:
             plot_line_diff(df_diffed, option, shift)
-            plot_dist_diff(df_diffed, option, shift)
+            plot_dec_diff(df_diffed, option, shift)
             
 
 

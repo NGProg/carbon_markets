@@ -1,17 +1,19 @@
 import streamlit as st 
+st.set_page_config(layout="wide")
 import pandas as pd
-
-from global_variables import data
-#import global_variables
 
 import describe
 import linegraphs
 import histogram
+import correlation
+import decomposition
 
 PAGES = {
     "Data Description": describe,
     "Line Charts": linegraphs,
-    "Histogram": histogram
+    "Histogram": histogram,
+    "Correlation": correlation,
+    "Decomposition": decomposition
 }
 
 st.title('Carbon Markets Explorer') 
