@@ -7,13 +7,16 @@ import linegraphs
 import histogram
 import correlation
 import decomposition
-
+import autocorrelation
+import stationary
 PAGES = {
     "Data Description": describe,
     "Line Charts": linegraphs,
     "Histogram": histogram,
     "Correlation": correlation,
-    "Decomposition": decomposition
+    "Decomposition": decomposition,
+    "Autocorrelation": autocorrelation,
+    "stationarity": stationary
 }
 
 st.title('Carbon Markets Explorer') 

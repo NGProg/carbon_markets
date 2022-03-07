@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from datetime import datetime
+#from fancyimpute import knn
 
 @st.cache()
 def load_market_data():
@@ -8,7 +9,11 @@ def load_market_data():
     del data['Unnamed: 0']
     data = data.dropna(how = 'all', axis = 1)
     data = data.sort_index()
-    data = data.interpolate()
+    data = data.interpolate(method = 'time')
+    #data = KNN(k = 5).fit_transform(data)[:, 0]
+    #data = data.rolling(30, center = True, min_periods = 1).mean()
+    #data = data.interpolate()
+    #data = data.interpolate()
     data = data.dropna(how='all')
     data = data.sort_index()
     return data
